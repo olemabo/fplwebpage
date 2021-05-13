@@ -103,15 +103,6 @@ def create_data_frame_Eliteserien():
 
     return df, data
 
-def return_fixture_names_shortnames_Eliteserien():
-    df, data = create_data_frame_Eliteserien()
-    with open('JSON_DATA/staticEliteserien.json') as json_static:
-        static = json.load(json_static)
-    names = pd.DataFrame(static['teams'])['name']
-    short_names = pd.DataFrame(static['teams'])['short_name']
-    ids = pd.DataFrame(static['teams'])['id']
-    return df, names, short_names, ids, data
-
 
 def fixture_score_one_team(df, team_idx, GW_start, GW_end):
     """
