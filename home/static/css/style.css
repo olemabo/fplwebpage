@@ -144,7 +144,7 @@ a:hover {
     width: var(--content-width);
     align-items: center;
     border-radius: var(--border-radius-content);
-    top: -25px;
+    top: -35px;
     position: relative;
     text-align: center;
 }

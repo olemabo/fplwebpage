@@ -1,3 +1,8 @@
+:root {
+    --fdr-content-width: 1000px;
+}
+
+
 body {
   background: #EEE;
   margin: 0;
@@ -249,7 +254,7 @@ th, td {
 /* table structure FDR */
 
 .container-fdr {
-    max-width: 900px;
+    max-width: var(--fdr-content-width);
     margin: 5px auto;
     display: flex;
 }
@@ -278,7 +283,7 @@ th, td {
 /* table structure Rotation */
 
 .container-rotation {
-    max-width: 900px;
+    max-width: var(--fdr-content-width);
     margin: 3px auto;
     display: inline-block;
     background-color: #EEE;
