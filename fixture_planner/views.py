@@ -95,7 +95,6 @@ def fixture_planner(request, start_gw=get_current_gw(), end_gw=get_current_gw()+
 
     gws = end_gw - start_gw + 1
     gw_numbers = [i for i in range(start_gw, end_gw + 1)]
-    kickofftime_db = KickOffTime.objects.filter(gameweek__range=(start_gw, end_gw))
 
     fixture_list = []
     for i in range(number_of_teams):
@@ -162,14 +161,21 @@ def fixture_planner(request, start_gw=get_current_gw(), end_gw=get_current_gw()+
         else:
             rotation_data = rotation_data[:(min(len(rotation_data), 50))]
 
-    if abs(min_num_fixtures) > (end_gw-start_gw):
-            min_num_fixtures = abs(end_gw-start_gw)
-            if min_num_fixtures == 0:
-                min_num_fixtures = 1
-                end_gw = start_gw + 1
+
+
     if combinations == 'FDR-best':
+        if abs(min_num_fixtures) > (end_gw - start_gw):
+            min_num_fixtures = abs(end_gw - start_gw)
+            if min_num_fixtures == 0:
+                if end_gw == get_max_gw():
+                    start_gw -= 1
+                else:
+                    end_gw += 1
+                min_num_fixtures = 1
+
         fdr_fixture_data = alg.find_best_fixture_with_min_length_each_team(fixture_list, GW_start=start_gw, GW_end=end_gw, min_length=min_num_fixtures)
 
+    kickofftime_db = KickOffTime.objects.filter(gameweek__range=(start_gw, end_gw))
 
     context = {
         'teams': teams,
